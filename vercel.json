@@ -1,6 +1,16 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/backend/manage.py" }],
-  "functions": {
-    "backend/manage.py": { "runtime": "vercel-python@0.0.6" }
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/config/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend/config/wsgi.py"
+    }
+  ]
 }
