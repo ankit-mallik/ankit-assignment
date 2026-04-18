@@ -19,7 +19,7 @@ export default function PrintQR() {
 
   return (
     <div>
-      <div className="no-print actions">
+      <div className="no-print actions" style={{ marginBottom: '20px', display: 'flex', gap: '10px', alignItems: 'center' }}>
         <button className="primary" onClick={() => window.print()}>Print</button>
         <span className="muted">{books.length} book(s) selected</span>
       </div>
@@ -29,7 +29,7 @@ export default function PrintQR() {
           <div key={i} className="print-cell">
             {b && b.qr_code && (
               <>
-                <img src={b.qr_code.startsWith('http') ? b.qr_code : `${MEDIA_BASE}${b.qr_code}`} alt="QR" />
+                <img src={b.qr_code.startsWith('http') || b.qr_code.startsWith('data:') ? b.qr_code : `${MEDIA_BASE}${b.qr_code}`} alt="QR" />
                 <div className="title">{b.title}</div>
                 <div className="bid">{b.book_id}</div>
               </>
