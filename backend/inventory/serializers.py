@@ -16,7 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     current_holder_name = serializers.SerializerMethodField()
-    qr_code = serializers.ImageField(read_only=True)
+    # qr_code = serializers.ImageField(read_only=True)
+    qr_code = serializers.SerializerMethodField()
 
     class Meta:
         model = Book
@@ -41,6 +42,9 @@ class BookSerializer(serializers.ModelSerializer):
         if obj.current_holder:
             return f"{obj.current_holder.name} (ID: {obj.current_holder.id})"
         return "Available"
+    
+    def get_qr_code(self, obj):
+        return obj.get_qr_code()
 
 
 class BorrowTransactionSerializer(serializers.ModelSerializer):
