@@ -34,9 +34,10 @@ export default function BookDetail() {
     try { await api.deleteBook(bookId); navigate('/') } catch (e) { setError(e.message) }
   }
 
-  const qrUrl = book.qr_code
-    ? (book.qr_code.startsWith('http') ? book.qr_code : `${MEDIA_BASE}${book.qr_code}`)
-    : null
+  // const qrUrl = book.qr_code
+  //   ? (book.qr_code.startsWith('http') ? book.qr_code : `${MEDIA_BASE}${book.qr_code}`)
+  //   : null
+  const qrUrl = book.qr_code ? (book.qr_code.startsWith('http') || book.qr_code.startsWith('data:') ? book.qr_code : `${MEDIA_BASE}${book.qr_code}`) : null
 
   return (
     <div>
