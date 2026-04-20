@@ -10,6 +10,16 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by("-created_at")
     serializer_class = UserSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        user = self.get_object()
+
+        if user.held_books.exists():
+            return Response(
+                {"error": "Cannot delete user. They must return all books first."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        return super().destroy(request, *args, **kwargs)
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all().order_by("-created_at")

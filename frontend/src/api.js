@@ -25,6 +25,7 @@ export const api = {
   printBooks: (ids) => request(`/api/books/print/?ids=${ids.join(',')}`),
   listUsers: () => request('/api/users/'),
   createUser: (name) => request('/api/users/', { method: 'POST', body: JSON.stringify({ name }) }),
+  deleteUser: (id) => request(`/api/users/${id}/`, { method: 'DELETE' }),
 }
 
 export const MEDIA_BASE = BASE
